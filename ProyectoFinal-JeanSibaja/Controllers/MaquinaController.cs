@@ -10,37 +10,58 @@ namespace ProyectoFinal_JeanSibaja.Controllers
 {
     public class MaquinaController : Controller
     {
-        private readonly ICosmosDBService<Maquina> _cosmosService;
+        private readonly ICosmosDBServiceMaquina _cosmosService;
 
-        public MaquinaController(ICosmosDBService<Maquina> cosmosDBService)
+        public MaquinaController(ICosmosDBServiceMaquina cosmosDBService)
         {
-            this._cosmosService = cosmosDBService;
+           this._cosmosService = cosmosDBService;
         }
 
-        public async Task<List<Maquina>> Index()
+        public async Task<IActionResult> Maquina()
         {
-            return (await this._cosmosService.GetItemsAsync("SELECT * FROM maquina")).ToList();
+            return View((await this._cosmosService.GetItemsAsync("SELECT * FROM maquina")).ToList());
+        }
+        public IActionResult Create()
+        {
+            return View();
         }
 
-        public async Task AddItem()
+        public async Task<ActionResult> CreateMaquina(Maquina maquina)
         {
-            Maquina maquina = new Maquina();
             maquina.id = Guid.NewGuid().ToString();
 
+            maquina.probabilidad_fallo = (new Random().Next(1,11)/10.00);
+
             await this._cosmosService.AddItemAsync(maquina, maquina.id);
+
+            return RedirectToAction("Maquina");
+
         }
 
-        public async Task UpdateItem(string id)
+        public IActionResult Edit(Maquina maquina)
         {
-            Maquina maquina = new Maquina();
-            maquina.id =id;
-
-            await this._cosmosService.UpdateItemAsync(id, maquina);
+            return View(maquina);
         }
 
-        public async Task DeleteItem(string id)
+        public async Task<ActionResult> EditMaquina(Maquina maquina)
         {
-            await this._cosmosService.DeleteItemAsync(id);
+            await this._cosmosService.UpdateItemAsync(maquina.id, maquina);
+
+            return RedirectToAction("Maquina");
+
+        }
+
+        public IActionResult Delete(Maquina maquina)
+        {
+            return View(maquina);
+        }
+
+        public async Task<ActionResult> DeleteProduct(Maquina maquina)
+        {
+            await this._cosmosService.DeleteItemAsync(maquina.id);
+
+            return RedirectToAction("Maquina");
+
         }
     }
 }

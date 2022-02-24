@@ -1,0 +1,47 @@
+﻿@model IEnumerable<ProyectoFinal_JeanSibaja.Models.Producto>
+
+@{
+    ViewData["Title"] = "Producto";
+}
+
+<h1>Producto</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.nombre)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.precio)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.nombre)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.precio)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", item) |
+                    @Html.ActionLink("Delete", "Delete", item)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

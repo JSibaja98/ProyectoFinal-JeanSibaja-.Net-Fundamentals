@@ -10,15 +10,58 @@ namespace ProyectoFinal_JeanSibaja.Controllers
 {
     public class ProductoController : Controller
     {
-        private readonly ICosmosDBService<Producto> _cosmosService;
+        private readonly ICosmosDBServiceProducto _cosmosService;
 
-        public ProductoController(ICosmosDBService<Producto> cosmosDBService)
+        public ProductoController(ICosmosDBServiceProducto cosmosDBService)
         {
             this._cosmosService = cosmosDBService;
         }
-        public IActionResult Index()
+
+        public async Task<IActionResult> Producto()
+        {
+            return View((await this._cosmosService.GetItemsAsync("SELECT * FROM producto")).ToList());
+        }
+
+
+        public IActionResult Create()
         {
             return View();
+        }
+
+        public async Task<ActionResult> CreateProduct(Producto producto)
+        {
+            producto.id = Guid.NewGuid().ToString();
+
+            await this._cosmosService.AddItemAsync(producto, producto.id);
+
+            return RedirectToAction("Producto");
+
+        }
+
+        public IActionResult Edit(Producto prod)
+        {
+            return View(prod);
+        }
+
+        public async Task<ActionResult> EditProduct(Producto producto)
+        {
+            await this._cosmosService.UpdateItemAsync(producto.id,producto);
+
+            return RedirectToAction("Producto");
+
+        }
+
+        public IActionResult Delete(Producto prod)
+        {
+            return View(prod);
+        }
+
+        public async Task<ActionResult> DeleteProduct(Producto producto)
+        {
+            await this._cosmosService.DeleteItemAsync(producto.id);
+
+            return RedirectToAction("Producto");
+
         }
     }
 }
