@@ -25,7 +25,9 @@ namespace ProyectoFinal_JeanSibaja.Controllers
         // GET: Simulacion
         public ActionResult Details()
         {
-            return View();
+            IEnumerable<Simulacion> simulaciones = this._cosmosServiceSimulacion.GetItemsAsync("SELECT * FROM simulaciones").Result;
+            var simulacionResult = simulaciones.ToList();
+            return View(simulacionResult[(simulaciones.ToList().Count()-1)]);
         }
 
         // GET: Lista de Maquinas
@@ -109,33 +111,50 @@ namespace ProyectoFinal_JeanSibaja.Controllers
             int contadorMa1 = 1;
             int contadorMa2 = 1;
 
-            // Cantidad de productos por maquina
+            #region  Cantidad de productos por maquina
 
             for (int i = 1; i <= totalHorasDiariasEfectivas; i++)
             {
-                if(contadorMa1 == ma1.cant_producto_x_hora) //maquina 1
+                if(contadorMa1 <= modelos.Simulacion.Cantidad_horas_produccion_diaria) //maquina 1
                 {
-                    modelos.Simulacion.Productos_Construidos_M1++;
+                    modelos.Simulacion.Productos_Construidos_M1 += ma1.cant_producto_x_hora;
                     contadorMa1 = 1;
                 }
 
-                if (contadorMa2 == ma2.cant_producto_x_hora) //maquina 2
+                if (contadorMa2 <= modelos.Simulacion.Cantidad_horas_produccion_diaria) //maquina 2
                 {
-                    modelos.Simulacion.Productos_Construidos_M2++;
+                    modelos.Simulacion.Productos_Construidos_M2 +=ma2.cant_producto_x_hora;
                     contadorMa2 = 1;
                 }
 
                 contadorMa1++;
                 contadorMa2++;
             }
+            #endregion
 
-            //
+            Producto producto = this._cosmosServiceProducto.GetItemAsync(modelos.Simulacion.Producto).Result;
+
+            #region Ganancia bruta
+
+            modelos.Simulacion.Ganancia_Productos_M1 = (modelos.Simulacion.Productos_Construidos_M1 * producto.precio);
+            modelos.Simulacion.Ganancia_Productos_M2 = (modelos.Simulacion.Productos_Construidos_M2 * producto.precio);
 
             #endregion
 
-            //await this._cosmosServiceSimulacion.AddItemAsync(modelos.Simulacion, modelos.Simulacion.id);
+            #region Ganancia neta
 
-            return RedirectToAction("Index");
+            modelos.Simulacion.Ganancia_Real_M1 = (modelos.Simulacion.Ganancia_Productos_M1 - (modelos.Simulacion.Productos_Construidos_M1 * modelos.Simulacion.Precio_x_fabricacion_del_Producto));
+            modelos.Simulacion.Ganancia_Real_M2 = (modelos.Simulacion.Ganancia_Productos_M2 - (modelos.Simulacion.Productos_Construidos_M2 * modelos.Simulacion.Precio_x_fabricacion_del_Producto));
+
+            #endregion
+
+            modelos.Simulacion.Maquina_Recomendada = modelos.Simulacion.Ganancia_Real_M1 > modelos.Simulacion.Ganancia_Real_M2 ? ma1.id : ma2.id;
+
+            #endregion
+
+            await this._cosmosServiceSimulacion.AddItemAsync(modelos.Simulacion, modelos.Simulacion.id);
+
+            return RedirectToAction("Details");
 
         }
 

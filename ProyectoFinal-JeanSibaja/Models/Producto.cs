@@ -15,6 +15,6 @@ namespace ProyectoFinal_JeanSibaja.Models
         public string nombre { get; set; }
 
         [JsonProperty(PropertyName = "precio")]
-        public double precio { get; set; }
+        public int precio { get; set; }
     }
 }

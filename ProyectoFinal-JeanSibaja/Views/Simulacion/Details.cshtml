@@ -1,0 +1,177 @@
+﻿@model ProyectoFinal_JeanSibaja.Models.Simulacion
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Simulacion</h4>
+    <hr />
+    <dl class="container d-flex flex-wrap">
+        <div class="row col-12 p-2">
+            <div class="col-6">
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.id)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.id)
+                </dd>
+            </div>
+            <div class="col-6">
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Cantidad_dias_produccion_semanal)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Cantidad_dias_produccion_semanal)
+                </dd>
+            </div>
+        </div>
+        <div class="row col-12 p-2">
+            <div class="col-6">
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Cantidad_horas_produccion_diaria)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Cantidad_horas_produccion_diaria)
+                </dd>
+            </div>
+            <div class="col-6">
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Cantidad_Meses_Simulacion)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Cantidad_Meses_Simulacion)
+                </dd>
+            </div>
+        </div>
+        <div class="row col-12 p-2">
+            <div class="col-6">
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Cantidad_Dias_Simulacion)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Cantidad_Dias_Simulacion)
+                </dd>
+            </div>
+            <div class="col-6">
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Cantidad_Horas_Simulacion)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Cantidad_Horas_Simulacion)
+                </dd>
+            </div>
+        </div>
+        <div class="row col-12 p-2">
+            <div class="col-6">
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Precio_x_fabricacion_del_Producto)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Precio_x_fabricacion_del_Producto)
+                </dd>
+            </div>
+            <div class="col-6">
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Maquina1)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Maquina1)
+                </dd>
+            </div>
+        </div>
+        <div class="row col-12 p-2">
+            <div class="col-6">
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Maquina2)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Maquina2)
+                </dd>
+            </div>
+            <div class="col-6">
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Producto)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Producto)
+                </dd>
+            </div>
+        </div>
+        <div class="row col-12 p-2">
+            <div class="col-6">
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Productos_Construidos_M1)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Productos_Construidos_M1)
+                </dd>
+            </div>
+            <div class="col-6">
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Productos_Construidos_M2)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Productos_Construidos_M2)
+                </dd>
+            </div>
+        </div>
+        <div class="row col-12 p-2">
+            <div class="col-6">
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Ganancia_Productos_M1)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Ganancia_Productos_M1)
+                </dd>
+            </div>
+            <div class="col-6">
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Ganancia_Productos_M2)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Ganancia_Productos_M2)
+                </dd>
+            </div>
+        </div>
+        <div class="row col-12 p-2">
+            <div class="col-6">
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Ganancia_Real_M1)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Ganancia_Real_M1)
+                </dd>
+            </div>
+            <div class="col-6">
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Ganancia_Real_M2)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Ganancia_Real_M2)
+                </dd>
+            </div>
+        </div>
+        <div class="row col-12 p-2">
+            <div class="col-6">
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Maquina_Recomendada)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Maquina_Recomendada)
+                </dd>
+            </div>
+            <div class="col-6">
+
+            </div>
+        </div>
+
+    </dl>
+</div>
+<div>
+<div>
+    @Html.ActionLink("Create", "Create") |
+    <a asp-controller="Home" asp-action="Index">Index</a>
+</div>
