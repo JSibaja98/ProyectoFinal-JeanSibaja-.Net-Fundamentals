@@ -61,14 +61,15 @@ namespace ProyectoFinal_JeanSibaja.Services
 
         public async Task UpdateItemAsync(string id, Maquina item)
         {
-            var prod = this.GetItemAsync(id).Result;
+            var maq = this.GetItemAsync(id).Result;
 
-            prod.horas_en_reparacion = item.horas_en_reparacion;
-            prod.cant_producto_x_hora = item.cant_producto_x_hora;
-            prod.costo_operacion_x_hora = item.costo_operacion_x_hora;
-            prod.estado = item.estado;
+            maq.horas_en_reparacion = item.horas_en_reparacion;
+            maq.cant_producto_x_hora = item.cant_producto_x_hora;
+            maq.costo_operacion_x_hora = item.costo_operacion_x_hora;
+            maq.estado = item.estado;
+            maq.nombre_descriptivo = item.nombre_descriptivo;
 
-            await this._container.UpsertItemAsync<Maquina>(prod, new PartitionKey(id));
+            await this._container.UpsertItemAsync<Maquina>(maq, new PartitionKey(id));
         }
     }
 
@@ -129,4 +130,39 @@ namespace ProyectoFinal_JeanSibaja.Services
             await this._container.UpsertItemAsync<Producto>(item, new PartitionKey(id));
         }
     }
+
+    public interface ICosmosDBServiceSimulacion
+    {
+        Task<IEnumerable<Simulacion>> GetItemsAsync(string query);
+        Task AddItemAsync(Simulacion item, string id);
+    }
+
+    public class CosmosDBServiceSimulacion : ICosmosDBServiceSimulacion
+    {
+        private Container _container;
+        public CosmosDBServiceSimulacion(CosmosClient dbClient, string dataBaseName, string containerName)
+        {
+            this._container = dbClient.GetContainer(dataBaseName, containerName);
+        }
+
+        public async Task<IEnumerable<Simulacion>> GetItemsAsync(string queryString)
+        {
+            var query = this._container.GetItemQueryIterator<Simulacion>(new QueryDefinition(queryString));
+            List<Simulacion> results = new List<Simulacion>();
+            while (query.HasMoreResults)
+            {
+                var response = await query.ReadNextAsync();
+                results.AddRange(response.ToList());
+            }
+            return results;
+        }
+
+        
+        public async Task AddItemAsync(Simulacion item, string id)
+        {
+            await this._container.CreateItemAsync<Simulacion>(item, new PartitionKey(id));
+        }
+
+    }
+
 }

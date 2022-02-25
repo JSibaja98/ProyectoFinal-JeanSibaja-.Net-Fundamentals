@@ -14,8 +14,13 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="id" class="control-label"></label>
-                <input asp-for="id" class="form-control"  readonly/>
+                <input asp-for="id" class="form-control" readonly />
                 <span asp-validation-for="id" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="nombre_descriptivo" class="control-label"></label>
+                <input asp-for="nombre_descriptivo" class="form-control" />
+                <span asp-validation-for="nombre_descriptivo" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="cant_producto_x_hora" class="control-label"></label>
@@ -29,7 +34,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="probabilidad_fallo" class="control-label"></label>
-                <input asp-for="probabilidad_fallo" class="form-control" readonly/>
+                <input asp-for="probabilidad_fallo" class="form-control" readonly />
                 <span asp-validation-for="probabilidad_fallo" class="text-danger"></span>
             </div>
             <div class="form-group">

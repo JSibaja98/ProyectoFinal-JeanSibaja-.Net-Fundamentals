@@ -11,6 +11,9 @@ namespace ProyectoFinal_JeanSibaja.Models
         [JsonProperty(PropertyName = "id")]
         public string id { get; set; }
 
+        [JsonProperty(PropertyName = "nombre_descriptivo")]
+        public string nombre_descriptivo { get; set; }
+
         [JsonProperty(PropertyName = "cant_producto_x_hora")]
         public int cant_producto_x_hora { get; set; }
 
