@@ -4,6 +4,7 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <RootNamespace>ProyectoFinal_JeanSibaja</RootNamespace>
     <TypeScriptToolsVersion>Latest</TypeScriptToolsVersion>
+    <UserSecretsId>e024646d-bf5e-4f9a-8ab5-ccf3cdf23c62</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
